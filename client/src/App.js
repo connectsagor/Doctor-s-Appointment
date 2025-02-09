@@ -6,6 +6,9 @@ import Contact from "./components/Contact/Contact";
 import Services from "./components/Services/Services";
 import DentelCare from "./components/DentalCare/DentelCare";
 import Appointment from "./components/Appointment/Appointment";
+import Testimonials from "./components/Teastimonials/Testimonials";
+import ContactForm from "./components/ContactForm/ContactForm";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -16,6 +19,9 @@ function App() {
       <Services />
       <DentelCare />
       <Appointment />
+      <Testimonials />
+      <ContactForm />
+      <Footer />
     </div>
   );
 }
