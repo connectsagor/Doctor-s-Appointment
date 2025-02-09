@@ -1,0 +1,18 @@
+.main-row {
+  height: 90vh;
+  width: 100%;
+  position: relative;
+  z-index: 0; /* Set to 0 or remove this line */
+  background: white;
+}
+
+.main-row::after {
+  height: 90vh;
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 33%;
+  right: 0;
+  z-index: -1; /* This works now because the parent is at a non-negative z-index */
+  background-color: #3a4256;
+}

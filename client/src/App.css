@@ -1,7 +1,26 @@
-.App {
-  text-align: center;
+img {
+  width: 100%;
 }
 
-.App-link {
-  color: #61dafb;
+.main-color {
+  color: #0fcfec;
+}
+
+.second-color {
+  color: #3a4256;
+}
+
+.primary-btn {
+  color: #000;
+  background-color: #0fcfec;
+  transition: all 0.3s ease-in-out;
+  border-radius: 3px;
+}
+.primary-btn:hover {
+  color: #fff;
+  background-color: #3a4256;
+}
+.link {
+  background-color: #3a4256;
+  color: #fff;
 }
