@@ -15,6 +15,7 @@ img {
   background-color: #0fcfec;
   transition: all 0.3s ease-in-out;
   border-radius: 3px;
+  border: none;
 }
 .primary-btn:hover {
   color: #fff;

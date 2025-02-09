@@ -15,4 +15,5 @@
   right: 0;
   z-index: -1; /* This works now because the parent is at a non-negative z-index */
   background-color: #3a4256;
+  border-radius: 3px;
 }
