@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import SlotModal from "../Appointment/AppointmentForm/AppointmentForm";
+
 const availableSlot = [
   {
     id: 1,
@@ -27,6 +29,15 @@ const availableSlot = [
   },
 ];
 const AvailableSlot = () => {
+  const [modalIsOpen, setIsOpen] = useState(false);
+  function openModal(service) {
+    sessionStorage.setItem("service", JSON.stringify(service));
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
   return (
     <div className="container my-5">
       <div className="row text-center mb-4">
@@ -35,17 +46,21 @@ const AvailableSlot = () => {
       <div className="row text-center">
         {availableSlot.map((service) => {
           return (
-            <div className="col-md-4">
+            <div key={service.id} className="col-md-4">
               <div className="services my-4 rounded-1 p-3 shadow-lg">
                 <h4>{service.title}</h4>
                 <p>{service.time}</p>
-                <button className="primary-btn py-2 px-3">
+                <button
+                  onClick={() => openModal(service)}
+                  className="primary-btn py-2 px-3"
+                >
                   Book appointment
                 </button>
               </div>
             </div>
           );
         })}
+        <SlotModal modalFunc={[modalIsOpen, openModal, closeModal]} />
       </div>
     </div>
   );
