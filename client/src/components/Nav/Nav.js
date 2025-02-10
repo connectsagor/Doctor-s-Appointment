@@ -2,7 +2,21 @@ import React from "react";
 import "./Nav.css";
 import logo from "../../assets/images/logo.png";
 import { Link } from "react-router-dom";
+import { use } from "react";
+import { getAuth, signOut } from "firebase/auth";
 const Nav = () => {
+  const user = JSON.parse(sessionStorage.getItem("user"));
+
+  const handleLogOut = () => {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        sessionStorage.removeItem("user");
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
   return (
     <nav className="navbar navbar-expand-lg font-monospace">
       <div className="container">
@@ -18,15 +32,23 @@ const Nav = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link">Appointment</Link>
+              <Link to="/appointments" className="nav-link">
+                Appointment
+              </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link">Reviews</Link>
             </li>
             <li className="nav-item">
-              <Link to="/login" className="nav-link">
-                Login
-              </Link>
+              {user && user.email ? (
+                <Link onClick={handleLogOut} className="nav-link">
+                  Logout
+                </Link>
+              ) : (
+                <Link to="/login" className="nav-link">
+                  Login
+                </Link>
+              )}
             </li>
           </ul>
         </div>
