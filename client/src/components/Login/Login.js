@@ -1,6 +1,7 @@
 import React from "react";
 import "./Login.css";
 import Nav from "../Nav/Nav";
+import { Link } from "react-router";
 
 const Login = () => {
   return (
@@ -27,10 +28,12 @@ const Login = () => {
             />
           </form>
           <div>
-            <button className="primary-btn py-2 px-3 w-100">
+            <button className="primary-btn py-2 px-3 w-100 mb-3">
               Login with Google
             </button>
-            <p className="mt-3">No account? Create one</p>
+            <Link to="/signup" className="mt-3">
+              No account? Create one
+            </Link>
           </div>
         </div>
       </div>

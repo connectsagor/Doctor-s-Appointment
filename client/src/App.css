@@ -25,3 +25,7 @@ img {
   background-color: #3a4256;
   color: #fff;
 }
+
+a {
+  text-decoration: none !important;
+}

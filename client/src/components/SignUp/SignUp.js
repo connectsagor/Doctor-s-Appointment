@@ -1,9 +1,12 @@
 import React from "react";
 import "./SignUp.css";
+import { Link } from "react-router";
+import Nav from "../Nav/Nav";
 
 const SignUp = () => {
   return (
     <div className="container">
+      <Nav />
       <div className="row sign-up-row justify-content-center align-items-center">
         <div className="login w-25 text-center">
           <h2 className="mb-4">Registration</h2>
@@ -35,7 +38,9 @@ const SignUp = () => {
             />
           </form>
           <div>
-            <p className="mt-2">Already have an account? Login</p>
+            <Link to="/login" className="mt-2">
+              Already have an account? Login
+            </Link>
           </div>
         </div>
       </div>
