@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./Login.css";
 import Nav from "../Nav/Nav";
 import { Link, useLocation, useNavigate } from "react-router";
@@ -8,8 +8,12 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { UserContext } from "../../App";
 
 const Login = () => {
+  const userContext = useContext(UserContext);
+  const { isLoggedIn, setIsLoggedIn } = userContext[0];
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -29,6 +33,7 @@ const Login = () => {
         const user = result.user;
 
         sessionStorage.setItem("user", JSON.stringify(user));
+        setIsLoggedIn(true);
         navigate(from, { replace: true });
       })
       .catch((error) => {
@@ -51,6 +56,7 @@ const Login = () => {
         // Signed in
         const user = userCredential.user;
         sessionStorage.setItem("user", JSON.stringify(user));
+        setIsLoggedIn(true);
       })
       .catch((error) => {
         const errorCode = error.code;

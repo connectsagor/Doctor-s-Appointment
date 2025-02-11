@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Nav.css";
 import logo from "../../assets/images/logo.png";
 import { Link } from "react-router-dom";
-import { use } from "react";
 import { getAuth, signOut } from "firebase/auth";
+import { UserContext } from "../../App";
 const Nav = () => {
+  const userContext = useContext(UserContext);
+  const { isLoggedIn, setIsLoggedIn } = userContext[0];
   const user = JSON.parse(sessionStorage.getItem("user"));
 
   const handleLogOut = () => {
@@ -12,6 +14,7 @@ const Nav = () => {
     signOut(auth)
       .then(() => {
         sessionStorage.removeItem("user");
+        setIsLoggedIn(false);
       })
       .catch((error) => {
         // An error happened.
@@ -40,7 +43,7 @@ const Nav = () => {
               <Link className="nav-link">Reviews</Link>
             </li>
             <li className="nav-item">
-              {user && user.email ? (
+              {user && isLoggedIn ? (
                 <Link onClick={handleLogOut} className="nav-link">
                   Logout
                 </Link>

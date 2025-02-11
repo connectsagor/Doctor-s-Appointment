@@ -3,11 +3,11 @@ import "react-calendar/dist/Calendar.css";
 import { useState } from "react";
 import Calendar from "react-calendar";
 
-const ReactCaledar = () => {
-  const [value, onChange] = useState(new Date());
+const ReactCaledar = (props) => {
+  const { selectedDate, onSelectedDate } = props.date;
   return (
     <div>
-      <Calendar onChange={onChange} value={value} />
+      <Calendar onChange={onSelectedDate} value={selectedDate} />
     </div>
   );
 };

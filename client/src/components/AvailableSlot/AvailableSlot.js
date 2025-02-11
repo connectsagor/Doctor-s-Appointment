@@ -28,7 +28,7 @@ const availableSlot = [
     time: "8:00 AM - 9:00 AM",
   },
 ];
-const AvailableSlot = () => {
+const AvailableSlot = ({ selectedDate }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   function openModal(service) {
     sessionStorage.setItem("service", JSON.stringify(service));
@@ -36,6 +36,7 @@ const AvailableSlot = () => {
   }
 
   function closeModal() {
+    sessionStorage.removeItem("service");
     setIsOpen(false);
   }
   return (
@@ -60,7 +61,10 @@ const AvailableSlot = () => {
             </div>
           );
         })}
-        <SlotModal modalFunc={[modalIsOpen, openModal, closeModal]} />
+        <SlotModal
+          selectedDate={selectedDate}
+          modalFunc={[modalIsOpen, openModal, closeModal]}
+        />
       </div>
     </div>
   );

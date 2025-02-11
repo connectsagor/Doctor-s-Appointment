@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./SignUp.css";
 import { Link, useNavigate } from "react-router";
 import Nav from "../Nav/Nav";
@@ -8,8 +8,11 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { UserContext } from "../../App";
 
 const SignUp = () => {
+  const userContext = useContext(UserContext);
+  const { isLoggedIn, setIsLoggedIn } = userContext[0];
   const navigate = useNavigate();
   const auth = getAuth();
   const db = getFirestore();
@@ -30,7 +33,7 @@ const SignUp = () => {
       const user = userCredential.user;
 
       sessionStorage.setItem("user", JSON.stringify(user));
-
+      setIsLoggedIn(true);
       const userDoc = doc(db, "users", user.uid); // 'users' is the collection name
       await setDoc(userDoc, {
         name: name,

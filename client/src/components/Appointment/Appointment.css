@@ -4,3 +4,8 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+.cross-btn {
+  top: 8px;
+  right: 8px;
+}

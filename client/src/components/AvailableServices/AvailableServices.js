@@ -1,7 +1,8 @@
 import React from "react";
 import "./AvailableServices.css";
 
-const AvailableServices = () => {
+const AvailableServices = (props) => {
+  const selectedDate = props.date;
   const servicesItems = [
     {
       id: 1,
@@ -31,7 +32,7 @@ const AvailableServices = () => {
   return (
     <div className="container my-5">
       <div className="row text-center">
-        <h2>Available Services on April 30, 2022</h2>
+        {selectedDate && <h2>Available Services on {selectedDate}</h2>}
         <h5>Please select a service</h5>
       </div>
 
