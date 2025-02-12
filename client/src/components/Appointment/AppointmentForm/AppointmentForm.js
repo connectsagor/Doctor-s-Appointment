@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import Modal from "react-modal";
 import { XCircleFill } from "react-bootstrap-icons";
+import { redirect, useNavigate } from "react-router";
 
 const customStyles = {
   content: {
@@ -16,6 +17,7 @@ const customStyles = {
 
 Modal.setAppElement("#root");
 function SlotModal({ modalFunc, selectedDate, user }) {
+  const navigate = useNavigate();
   const [modalIsOpen, openModal, closeModal] = modalFunc;
   const service = JSON.parse(sessionStorage.getItem("service"));
   let date = selectedDate;
@@ -23,9 +25,8 @@ function SlotModal({ modalFunc, selectedDate, user }) {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
-  const handleSubmitFrom = (e) => {
+  const handlePayment = (e) => {
     e.preventDefault();
-
     const userData = {
       userId: user.uid,
       name,
@@ -36,23 +37,8 @@ function SlotModal({ modalFunc, selectedDate, user }) {
     };
 
     if (name && email && phone) {
-      fetch("http://localhost:5000/addBookAppointment", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      })
-        .then((res) => res.json())
-        .then((result) => {
-          console.log(result);
-        });
-
-      setName("");
-      setEmail("");
-      setPhone("");
-      date = "";
-      closeModal();
+      sessionStorage.setItem("userData", JSON.stringify(userData));
+      navigate("/payment");
     }
   };
   return (
@@ -71,7 +57,7 @@ function SlotModal({ modalFunc, selectedDate, user }) {
           <XCircleFill />
         </button>
 
-        <form onSubmit={handleSubmitFrom}>
+        <form>
           <input value={date} type="text" className="my-3 form-control" />
 
           <input
@@ -97,6 +83,7 @@ function SlotModal({ modalFunc, selectedDate, user }) {
           />
           <div className="d-flex justify-content-center my-3">
             <input
+              onClick={handlePayment}
               type="submit"
               value="Submit"
               className="primary-btn py-2 px-3"

@@ -9,7 +9,8 @@ import Appointments from "./components/Appointments/Appointments";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import { createContext, useEffect, useState } from "react";
 import Dashboard from "./components/Dashboard/Dashboard";
-
+import Checkout from "./components/Payment/Checkout";
+import PaymentSuccess from "./components/SuccessPayment/SuccessPayment";
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -69,6 +70,24 @@ function App() {
                   <PrivateRoute>
                     <Dashboard></Dashboard>
                   </PrivateRoute>
+                </>
+              }
+            ></Route>
+            <Route
+              path="/payment"
+              element={
+                <>
+                  <PrivateRoute>
+                    <Checkout></Checkout>
+                  </PrivateRoute>
+                </>
+              }
+            ></Route>
+            <Route
+              path="/success"
+              element={
+                <>
+                  <PaymentSuccess></PaymentSuccess>
                 </>
               }
             ></Route>
