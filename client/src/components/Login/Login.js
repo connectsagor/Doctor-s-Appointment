@@ -9,10 +9,12 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { UserContext } from "../../App";
+import { use } from "react";
 
 const Login = () => {
   const userContext = useContext(UserContext);
   const { isLoggedIn, setIsLoggedIn } = userContext[0];
+  const { user, setUser } = userContext[1];
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,7 +33,7 @@ const Login = () => {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-
+        setUser(user);
         sessionStorage.setItem("user", JSON.stringify(user));
         setIsLoggedIn(true);
         navigate(from, { replace: true });
@@ -44,7 +46,9 @@ const Login = () => {
         const email = error.customData.email;
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
+        setUser(null);
+        sessionStorage.removeItem("user");
+        setIsLoggedIn(false);
       });
   };
 
@@ -55,12 +59,16 @@ const Login = () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+        setUser(user);
         sessionStorage.setItem("user", JSON.stringify(user));
         setIsLoggedIn(true);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        setUser(null);
+        sessionStorage.removeItem("user");
+        setIsLoggedIn(false);
       });
   };
   return (

@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+// const { ObjectId } = require("mongodb");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 require("dotenv").config();
@@ -14,6 +15,7 @@ mongoose.connect(process.env.DB).then(() => {
 });
 
 const BookingSchema = new mongoose.Schema({
+  userId: String,
   name: String,
   email: String,
   phone: String,
@@ -27,6 +29,18 @@ app.post("/addBookAppointment", async (req, res) => {
   const BookingData = req.body;
   await Booking.insertMany(BookingData);
   res.send("success");
+});
+app.get("/getData/:id", async (req, res) => {
+  const id = req.params.id;
+
+  const Data = await Booking.find({ userId: id });
+
+  res.status(200).json(Data);
+});
+
+app.get("/users", async (req, res) => {
+  const users = await Booking.find({});
+  res.status(200).json(users);
 });
 
 app.listen(port, () => {

@@ -8,6 +8,7 @@ import { initializeApp } from "firebase/app";
 import Appointments from "./components/Appointments/Appointments";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import { createContext, useEffect, useState } from "react";
+import Dashboard from "./components/Dashboard/Dashboard";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -24,17 +25,28 @@ const app = initializeApp(firebaseConfig);
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    const savedValue = localStorage.getItem("isLoggedIn");
+    const savedValue = sessionStorage.getItem("isLoggedIn");
     return savedValue === "true";
   });
 
+  const [user, setUser] = useState(() => {
+    const saveUser = sessionStorage.getItem("user");
+    return saveUser || null;
+  });
+
   useEffect(() => {
-    localStorage.setItem("isLoggedIn", isLoggedIn);
+    sessionStorage.setItem("isLoggedIn", isLoggedIn);
   }, []);
 
+  console.log(user);
   return (
     <>
-      <UserContext.Provider value={[{ isLoggedIn, setIsLoggedIn }]}>
+      <UserContext.Provider
+        value={[
+          { isLoggedIn, setIsLoggedIn },
+          { user, setUser },
+        ]}
+      >
         <BrowserRouter>
           <Routes>
             <Route exact path="/" element={<Home />}></Route>
@@ -46,6 +58,16 @@ function App() {
                 <>
                   <PrivateRoute>
                     <Appointments></Appointments>
+                  </PrivateRoute>
+                </>
+              }
+            ></Route>
+            <Route
+              path="/dashboard"
+              element={
+                <>
+                  <PrivateRoute>
+                    <Dashboard></Dashboard>
                   </PrivateRoute>
                 </>
               }

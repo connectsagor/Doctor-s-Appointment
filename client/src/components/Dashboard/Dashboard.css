@@ -1,0 +1,12 @@
+.bg-left {
+  background-color: #0fcfec;
+  color: #000;
+  height: 80vh;
+  border-radius: 4px;
+}
+
+.info-row {
+  background-color: rgba(143, 130, 130, 0.164) !important;
+  padding: 8px 0px !important;
+  border-radius: 6px;
+}

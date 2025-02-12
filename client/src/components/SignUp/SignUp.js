@@ -13,6 +13,7 @@ import { UserContext } from "../../App";
 const SignUp = () => {
   const userContext = useContext(UserContext);
   const { isLoggedIn, setIsLoggedIn } = userContext[0];
+  const { user, setUser } = userContext[1];
   const navigate = useNavigate();
   const auth = getAuth();
   const db = getFirestore();
@@ -31,7 +32,7 @@ const SignUp = () => {
         password
       );
       const user = userCredential.user;
-
+      setUser(user);
       sessionStorage.setItem("user", JSON.stringify(user));
       setIsLoggedIn(true);
       const userDoc = doc(db, "users", user.uid); // 'users' is the collection name
@@ -43,7 +44,9 @@ const SignUp = () => {
 
       navigate("/");
     } catch (error) {
-      console.log(error);
+      setUser(null);
+      sessionStorage.removeItem("user");
+      setIsLoggedIn(false);
     }
   };
 

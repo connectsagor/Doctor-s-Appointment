@@ -15,7 +15,7 @@ const customStyles = {
 };
 
 Modal.setAppElement("#root");
-function SlotModal({ modalFunc, selectedDate }) {
+function SlotModal({ modalFunc, selectedDate, user }) {
   const [modalIsOpen, openModal, closeModal] = modalFunc;
   const service = JSON.parse(sessionStorage.getItem("service"));
   let date = selectedDate;
@@ -27,29 +27,33 @@ function SlotModal({ modalFunc, selectedDate }) {
     e.preventDefault();
 
     const userData = {
+      userId: user.uid,
       name,
       email,
       phone,
       date: selectedDate,
       service: service,
     };
-    fetch("http://localhost:5000/addBookAppointment", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        console.log(result);
-      });
 
-    setName("");
-    setEmail("");
-    setPhone("");
-    date = "";
-    closeModal();
+    if (name && email && phone) {
+      fetch("http://localhost:5000/addBookAppointment", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          console.log(result);
+        });
+
+      setName("");
+      setEmail("");
+      setPhone("");
+      date = "";
+      closeModal();
+    }
   };
   return (
     <div className="text-center position-relative">

@@ -30,9 +30,15 @@ const Nav = () => {
         <div className="" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page">
-                About
-              </Link>
+              {isLoggedIn && (
+                <Link
+                  to="/dashboard"
+                  className="nav-link active"
+                  aria-current="page"
+                >
+                  Dashboard
+                </Link>
+              )}
             </li>
             <li className="nav-item">
               <Link to="/appointments" className="nav-link">

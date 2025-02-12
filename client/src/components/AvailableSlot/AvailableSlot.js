@@ -29,6 +29,7 @@ const availableSlot = [
   },
 ];
 const AvailableSlot = ({ selectedDate }) => {
+  const user = JSON.parse(sessionStorage.getItem("user"));
   const [modalIsOpen, setIsOpen] = useState(false);
   function openModal(service) {
     sessionStorage.setItem("service", JSON.stringify(service));
@@ -62,6 +63,7 @@ const AvailableSlot = ({ selectedDate }) => {
           );
         })}
         <SlotModal
+          user={user}
           selectedDate={selectedDate}
           modalFunc={[modalIsOpen, openModal, closeModal]}
         />
